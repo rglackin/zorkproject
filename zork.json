@@ -12,8 +12,19 @@
                 {
                     "direction": "east",
                     "roomId": 3
+                },
+                {
+                    "direction": "south",
+                    "roomId": null
+                },
+                {
+                    "direction": "west",
+                    "roomId": null
                 }
-            ]
+
+            ],
+            "enemies": [],
+            "items": []
         },
         {
             "id": 2,
@@ -21,6 +32,14 @@
             "description": "You stand in what seems to be an old mine. Somehow, the torch on the wall is still lit.\nA rusty pickaxe lies on the ground.\nYou can see daylight towards south.\nA long tunnel stretches west.",
             "exits": [
                 {
+                    "direction": "north",
+                    "roomId": null
+                },
+                {
+                    "direction": "east",
+                    "roomId": null
+                },
+                {
                     "direction": "south",
                     "roomId": 1
                 },
@@ -28,7 +47,9 @@
                     "direction": "west",
                     "roomId": 4
                 }
-            ]
+            ],
+            "enemies": [],
+            "items": [1]
         },
         {
             "id": 3,
@@ -36,10 +57,24 @@
             "description": "The trees loom over you. Something rustles in the undergrowth.\nA glint of metal catches your eye.\nThe cave entrance lies to the west.",
             "exits": [
                 {
+                    "direction": "north",
+                    "roomId": null
+                },
+                {
+                    "direction": "east",
+                    "roomId": null
+                },
+                {
+                    "direction": "south",
+                    "roomId": null
+                },
+                {
                     "direction": "west",
                     "roomId": 1
                 }
-            ]
+            ],
+            "enemies": [],
+            "items": [4]
         },
         {
             "id": 4,
@@ -47,14 +82,24 @@
             "description": "You reach a rail line. A human skeleton lies upon the track, it seems to have been there for years. The mining helmet on his skull is unscathed.\nTowards the south, you can see a light at the end of the tunnel. You can hear the sound of a pickaxe hitting rock.\nTo the north, the tunnel stretches on.",
             "exits": [
                 {
+                    "direction": "north",
+                    "roomId": 6
+                },
+                {
+                    "direction": "east",
+                    "roomId": null
+                },
+                {
                     "direction": "south",
                     "roomId": 5
                 },
                 {
-                    "direction": "north",
-                    "roomId": 6
+                    "direction": "west",
+                    "roomId": null
                 }
-            ]
+            ],
+            "enemies": [],
+            "items": [2,3]
         },
         {
             "id": 5,
@@ -62,14 +107,24 @@
             "description": "You stand at the entrance of a mine. The sound of a pickaxe hitting rock is louder here.\nA goblin stands in front of you, blocking the way.\nTo the south the rail line continues.",
             "exits": [
                 {
+                    "direction": "north",
+                    "roomId": 4
+                },
+                {
+                    "direction": "east",
+                    "roomId": null
+                },
+                {
                     "direction": "south",
                     "roomId": 7
                 },
                 {
-                    "direction": "north",
-                    "roomId": 4
+                    "direction": "west",
+                    "roomId": null
                 }
-            ]
+            ],
+            "enemies": [1],
+            "items": []
         },
         {
             "id": 6,
@@ -77,10 +132,24 @@
             "description": "The tunnel has collapsed. You can see daylight through the rubble.\nTo the south, you can see the rail tunnel.",
             "exits": [
                 {
+                    "direction": "north",
+                    "roomId": null
+                },
+                {
+                    "direction": "east",
+                    "roomId": null
+                },
+                {
                     "direction": "south",
                     "roomId": 4
+                },
+                {
+                    "direction": "west",
+                    "roomId": null
                 }
-            ]
+            ],
+            "enemies": [],
+            "items": []
         }
     ],
     "items":[
@@ -88,7 +157,6 @@
             "id": 1,
             "name": "Pickaxe",
             "description": "A rusty pickaxe. It looks like it has seen better days.",
-            "roomId": 2,
             "value": 1,
             "weight": 2,
             "type": "weapon",
@@ -98,7 +166,6 @@
             "id": 2,
             "name": "Helmet",
             "description": "A mining helmet. It looks like it has seen better days.",
-            "roomId": 4,
             "value": 1,
             "weight": 2,
             "type": "armor",
@@ -108,7 +175,6 @@
             "id": 3,
             "name": "Human Skull",
             "description": "A human skull. Why would you pick that up? It's disgusting.",
-            "roomId": 4,
             "value": 1,
             "weight": 2,
             "type": "misc"
@@ -118,7 +184,6 @@
             "id": 4,
             "name": "White BroncoNator 2000",
             "description": "White BroncoNator 2000. Legend says only those upon whom the gloves fit may wield this mighty sword. It whispers its murderous intent to you.",
-            "roomId": 3,
             "value": 5000,
             "weight": 1,
             "type": "weapon",
@@ -131,8 +196,7 @@
             "name": "Goblin Miner",
             "description": "A small, green creature with a wicked grin. It wields a rusty knife.",
             "health": 5,
-            "damage": 1,
-            "roomId": 5
+            "damage": 1
         }
     ]
     

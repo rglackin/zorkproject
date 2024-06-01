@@ -16,6 +16,8 @@ SOURCES += \
     Parser.cpp \
     Room.cpp \
     ZorkUL.cpp \
+    enemy.cpp \
+    exit.cpp \
     item.cpp \
     main.cpp \
     mainwindow.cpp
@@ -27,6 +29,8 @@ HEADERS += \
     Parser.h \
     Room.h \
     ZorkUL.h \
+    enemy.h \
+    exit.h \
     item.h \
     json.hpp \
     mainwindow.h

@@ -1,30 +1,33 @@
 #ifndef ITEM_H_
 #define ITEM_H_
 
-#include <map>
+//#include <map>
 #include <string>
-#include <iostream>
+//#include <iostream>
 using namespace std;
 
 class Item {
-private:
-	string description;
-	string longDescription;
-	int weightGrams;
-	float value;
-	bool weaponCheck;
+protected:
+    int id;
+    string name;
+    string desc;
+    int weight;
+    int value;
+    //bool weaponCheck;
 
 public:
-    Item (string description, int inWeight, float inValue);
-    Item (string description);
-	string getShortDescription();
-    string getLongDescription();
+    Item (int id, const string& name,const string& desc, int weight, float value);
+    //virtual ~Item();
+    //virtual void use()=0;
+    //Item (string description);
+    string getName();
+    string getDesc();
 	int getWeight();
 	void setWeight(int weightGrams);
-	float getValue();
-	void setValue(float value);
-	int getWeaponCheck();
-	void setWeaponCheck(int weaponCheck);
+    int getValue();
+    void setValue(int value);
+    //int getWeaponCheck();
+    //void setWeaponCheck(int weaponCheck);
 };
 
 #endif /*ITEM_H_*/

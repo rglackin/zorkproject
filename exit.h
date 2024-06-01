@@ -1,10 +1,19 @@
 #ifndef EXIT_H
 #define EXIT_H
-
-class Exit
+#include <string>
+using std::string;
+struct Exit
 {
-public:
-    Exit();
-};
+    string direction;
+    int targetRoomID;
+private:
+    bool isLocked;
 
+public:
+    Exit(const string& direction, int targetRoomID, bool isLocked)
+        : direction(direction), targetRoomID(targetRoomID), isLocked(isLocked) {}
+
+    bool getIsLocked() const { return isLocked; }
+    void setIsLocked(bool value) { isLocked = value; }
+};
 #endif // EXIT_H

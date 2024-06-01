@@ -16,11 +16,18 @@ SOURCES += \
     Parser.cpp \
     Room.cpp \
     ZorkUL.cpp \
+    armour.cpp \
+    atkEffect.cpp \
     enemy.cpp \
     exit.cpp \
+    healEffect.cpp \
     item.cpp \
+    magicEffect.cpp \
+    magicweapon.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    potion.cpp \
+    weapon.cpp
 
 HEADERS += \
     Character.h \
@@ -29,11 +36,18 @@ HEADERS += \
     Parser.h \
     Room.h \
     ZorkUL.h \
+    armour.h \
+    atkEffect.h \
     enemy.h \
     exit.h \
+    healEffect.h \
     item.h \
     json.hpp \
-    mainwindow.h
+    magicEffect.h \
+    magicweapon.h \
+    mainwindow.h \
+    potion.h \
+    weapon.h
 
 FORMS += \
     mainwindow.ui

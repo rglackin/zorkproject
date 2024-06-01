@@ -1,7 +1,7 @@
 #ifndef WEAPON_H
 #define WEAPON_H
 #include "item.h"
-class weapon: public Item
+class weapon: virtual public Item
 {
 private:
     int damage;

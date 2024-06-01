@@ -8,5 +8,4 @@ void weapon::setDamage(int newDamage){
 int weapon::getDamage() const{
     return damage;
 }
-//TODO implement this
-//void weapon::use(){}
+

@@ -17,9 +17,7 @@ private:
 
 public:
     Item (/*int id,*/ const string& name,const string& desc, int weight, float value);
-    //virtual ~Item();
-    //virtual void use()=0;
-    //Item (string description);
+    Item(Item &i);
     string getName();
     string getDesc();
 	int getWeight();

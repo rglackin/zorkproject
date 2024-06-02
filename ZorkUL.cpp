@@ -10,6 +10,7 @@
 #include"effectfactory.h"
 #include"globals.h"
 #include "exit.h"
+#include "enemy.h"
 
 using namespace std;
 using std::move;
@@ -29,6 +30,7 @@ int main(int argc, char *argv[]) {
 }
 
 ZorkUL::ZorkUL() {
+    cout<<"start"<<endl;
     parseJson();
     createEffects();
     createItems();
@@ -74,22 +76,17 @@ void ZorkUL::createRooms()  {
         QString name = roomObj["name"].toString();
         QString description = roomObj["description"].toString();
         //qDebug() << "Room:" << description;
-        roomsMap[id] = new Room(name.toStdString(),description.toStdString());
+        Room newRoom= Room(name.toStdString(),description.toStdString());
+        roomsMap[id] = &newRoom;
+        QJsonArray items = roomObj["items"].toArray();
+        QJsonArray enemies = roomObj["enemies"].toArray();
+        //create function pointers
+        void(Room::*addItemPtr)(Item*)= &Room::addItem;
+        //void(Room::*addEnemyPtr)(Enemy*)= &Room::addEnemy;
+        //call populate room using function pointers
+        populateRoom<Item>(&newRoom,addItemPtr,items);
     }
-    //cout << "Room 2:" << roomsMap[2]->getDescription();
-    /*
-//             (N, E, S, W)
-    a->setExits(f, b, d, c);
-	b->setExits(NULL, NULL, NULL, a);
-	c->setExits(NULL, a, NULL, NULL);
-	d->setExits(a, e, NULL, i);
-	e->setExits(NULL, NULL, NULL, d);
-	f->setExits(NULL, g, a, h);
-	g->setExits(NULL, NULL, NULL, f);
-	h->setExits(NULL, f, NULL, NULL);
-    i->setExits(NULL, d, NULL, NULL);
-
-        currentRoom = a;*/
+    currentRoom = roomsMap[1];
 }
 void ZorkUL::createEffects(){
     QJsonArray effectArray = jsonObject["effects"].toArray();
@@ -149,7 +146,29 @@ void ZorkUL::createExits(){
         entryRoomPtr->setExits(std::move(north),std::move(east),std::move(south),std::move(west));
     }
 }
+template<typename T, typename Func>
+//takes in pointer to room, pointer to func, and array
+void ZorkUL::populateRoom(Room* room,Func func, QJsonArray &array){
+    //set pointer to map to same type as desired class type
+    map<int,T*> *mapPtr = nullptr;
+    //set mapPtr to correct map
+    if constexpr(std::is_same_v<T*,Item*>)
+    {
+        mapPtr = &itemMap;
+    }
+    else if constexpr(std::is_same_v<T*,Enemy*>){
+        mapPtr = &enemyMap;
+    }
+    //iterate through array, add objects to room
+    for (const auto& value: array){
+        int id= value.toInt();
+        T *tPtr = (*mapPtr)[id];
+        (room->*func)(tPtr);
+    }
+}
+/*void ZorkUL::populateRoomEnemies(Room &room, QJsonArray &enemies){
 
+}*/
 /**
  *  Main play routine.  Loops until end of play.
  */

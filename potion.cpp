@@ -2,7 +2,10 @@
 
 Potion::Potion( const string& name,const string& desc, int weight, float value,MagicEffect* effect, int uses):
     Item(name,desc,weight,value),effect(effect),uses(uses){}
-
+Potion::Potion(Potion &i):Item(i){
+    effect = i.effect;
+    uses = i.uses;
+}
 int Potion::getUses() const
 {
     return uses;

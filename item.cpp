@@ -1,8 +1,14 @@
 #include "item.h"
 
-Item::Item (/*int id,*/ const string& name,const string& desc, int weight, float value/**, int weaponCheck*/)
-    : /*id(id),*/ name(name),desc(desc),weight(weight),value(value) {}
-
+Item::Item (const string& name,const string& desc, int weight, float value/**, int weaponCheck*/)
+    : name(name),desc(desc),weight(weight),value(value) {}
+//copy constructor
+Item::Item(Item &i){
+    name = i.name;
+    desc = i.desc;
+    weight = i.weight;
+    value = i.value;
+};
 void Item::setWeight(int inWeightGrams)
 {
     weight = inWeightGrams;

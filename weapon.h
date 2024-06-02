@@ -6,6 +6,7 @@ class weapon: virtual public Item
 private:
     int damage;
 public:
+    weapon(weapon& i);
     weapon(/*int id,*/ const string& name,const string& desc, int weight, float value, int damage);
     //void use() override;
     int getDamage() const;

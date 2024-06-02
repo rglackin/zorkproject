@@ -7,6 +7,7 @@
 #include <memory>
 #include "item.h"
 #include "exit.h"
+#include "enemy.h"
 using namespace std;
 using std::vector;
 enum class Direction {
@@ -36,6 +37,7 @@ public:
     Room* nextRoom(Direction direction);
     //should add copy of item to room, enables multiple items of same type
     void addItem(Item *inItem);
+    void addEnemy(Enemy *inEnemy);
     string displayItem();
     int isItemInRoom(string inString);
     void removeItemFromRoom(int location);

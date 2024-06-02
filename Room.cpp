@@ -34,8 +34,8 @@ void Room::setExits(unique_ptr<Exit> north, unique_ptr<Exit>east, unique_ptr<Exi
 
 void Room::addItem(Item *inItem) {
     //cout <<endl;
-    //cout << "Just added" + inItem->getLongDescription();
-    itemsInRoom.push_back(*inItem);
+    cout << "Just added " + inItem->getName()<<" to "<<this->name<<endl;
+    //itemsInRoom.push_back(*inItem);
 }
 
 string Room::displayItem() {

@@ -11,6 +11,7 @@ private:
     int uses;
 public:
     Potion(/*int id,*/ const string& name,const string& desc, int weight, float value,MagicEffect* effect, int uses);
+    Potion(Potion &i);
     void use(class Character& c);
     void decrementUses();
 

@@ -1,6 +1,4 @@
 #include "exit.h"
-#include <map>
-#include <stdexcept>
 using namespace std;
 /*Direction stringToDirection(const string& str) {
     static const std::map<string, Direction> directionMap = {
@@ -17,8 +15,8 @@ using namespace std;
         throw invalid_argument("Invalid direction input");
     }
 }*/
-Exit::Exit(/*const string& direction,*/ Room* targetRoom, bool isLocked)
-    : /*direction(stringToDirection(direction)),*/ targetRoom(targetRoom), isLocked(isLocked) {}
+Exit::Exit( Room* targetRoom, bool isLocked)
+    :  targetRoom(targetRoom), isLocked(isLocked) {}
 bool Exit::getIsLocked() const { return isLocked; }
 void Exit::setIsLocked(bool value) { isLocked = value; }
 void Exit::unlock(){setIsLocked(false);}

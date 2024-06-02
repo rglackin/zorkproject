@@ -2,18 +2,17 @@
 //#include <fstream>
 #include <QCoreApplication>
 #include <QFile>
-
 #include <QJsonArray>
 #include <QDebug>
-//#include "json.hpp"
 #include "ZorkUL.h"
 #include "Room.h"
 #include "itemfactory.h"
 #include"effectfactory.h"
 #include"globals.h"
-
+#include "exit.h"
 
 using namespace std;
+using std::move;
 //using json = nlohmann::json;
 map<int, MagicEffect*> effectMap;
 QJsonDocument ZorkUL::jsonDoc;
@@ -34,10 +33,17 @@ ZorkUL::ZorkUL() {
     createEffects();
     createItems();
 	createRooms();
+    createExits();
     //map debugging
     /*for(auto it = itemMap.begin();it!=itemMap.end();++it){
         cout<<"ID: "<<it->first<<" Name:"<<it->second->getName()<<" Desc:"<<it->second->getDesc()<<endl;
     }*/
+    /*for(auto it = roomsMap.begin();it!=roomsMap.end();++it){
+        //cout<<"ID: "<<it->first<<" Name:"<<it->second->getName()<<" Desc:"<<it->second->getDesc()<<endl;
+        cout<<"RoomID: "<<it->first<<endl;
+        it->second->printExits();
+    }*/
+
 }
 void ZorkUL::parseJson(){
     QString filePath = ":/json/zork.json";
@@ -111,6 +117,39 @@ void ZorkUL::createItems(){
         }
     }
 }
+void ZorkUL::createExits(){
+    QJsonArray roomsArray = jsonObject["rooms"].toArray();
+    for (const auto& roomValue : roomsArray) {
+        QJsonObject roomObj = roomValue.toObject();
+        int id = roomObj["id"].toInt();
+        Room* entryRoomPtr = roomsMap[id];
+        QJsonArray exitsArray = roomObj["exits"].toArray();
+        unique_ptr<Exit> north = nullptr;
+        unique_ptr<Exit> east = nullptr;
+        unique_ptr<Exit> south = nullptr;
+        unique_ptr<Exit> west = nullptr;
+
+
+        for (const QJsonValue& exitValue : exitsArray) {
+            QJsonObject exitObject = exitValue.toObject();
+            QString directionString = exitObject["direction"].toString();
+            int targetRoomId = exitObject["roomId"].toInt();
+            if(targetRoomId==0) continue;
+            Room* targetRoomPtr = roomsMap[targetRoomId];
+            if (directionString == "north") {
+                north = make_unique<Exit>(targetRoomPtr, exitObject["isLocked"].toBool(false));
+            } else if (directionString == "east") {
+                east = make_unique<Exit>(targetRoomPtr, exitObject["isLocked"].toBool(false));
+            } else if (directionString == "south") {
+                south = make_unique<Exit>(targetRoomPtr, exitObject["isLocked"].toBool(false));
+            } else if (directionString == "west") {
+                west = make_unique<Exit>(targetRoomPtr, exitObject["isLocked"].toBool(false));
+            }
+        }
+        entryRoomPtr->setExits(std::move(north),std::move(east),std::move(south),std::move(west));
+    }
+}
+
 /**
  *  Main play routine.  Loops until end of play.
  */

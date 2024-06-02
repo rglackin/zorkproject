@@ -31,6 +31,7 @@ private:
     void createItems();
     void createEnemies();
     void createEffects();
+    void createExits();
     void displayItems();
     void parseJson();
 public:

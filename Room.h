@@ -4,6 +4,7 @@
 #include <map>
 #include <string>
 #include <vector>
+#include <memory>
 #include "item.h"
 #include "exit.h"
 using namespace std;
@@ -20,7 +21,7 @@ private:
     //int id;
     string name;
 	string description;
-    map<Direction,Exit*> exits;
+    map<Direction,unique_ptr<Exit>> exits;
 	string exitString();
     vector <Item> itemsInRoom;
 
@@ -28,7 +29,7 @@ private:
 public:
     int numberOfItems();
     Room(string name,string description);
-    void setExits(Exit *north, Exit *east, Exit *south, Exit *west);
+    void setExits(unique_ptr<Exit> north, unique_ptr<Exit>east,unique_ptr<Exit>south, unique_ptr<Exit>west);
     string getName() const;
     string getDescription() const;
     //int getId() const;
@@ -38,6 +39,7 @@ public:
     string displayItem();
     int isItemInRoom(string inString);
     void removeItemFromRoom(int location);
+    void printExits();
     //void setName(const string &newName);
 };
 #endif

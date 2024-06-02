@@ -2,6 +2,8 @@
 //#include "Command.h"
 #include <map>
 #include <stdexcept>
+#include <iostream>
+using namespace std;
 Direction stringToDirection(const string& str) {
     static const std::map<string, Direction> directionMap = {
         {"north", Direction::NORTH},
@@ -22,15 +24,11 @@ Room::Room(/*int id,*/string name,string description) {
     this-> name = name;
     this->description = description;
 }
-void Room::setExits(Exit *north, Exit *east, Exit *south, Exit*west) {
-	if (north != NULL)
-        exits[Direction::NORTH] = north;
-	if (east != NULL)
-        exits[Direction::EAST] = east;
-	if (south != NULL)
-        exits[Direction::SOUTH] = south;
-	if (west != NULL)
-        exits[Direction::WEST] = west;
+void Room::setExits(unique_ptr<Exit> north, unique_ptr<Exit>east, unique_ptr<Exit>south, unique_ptr<Exit>west) {
+    if (north != NULL) exits[Direction::NORTH] = std::move(north);
+    if (east != NULL) exits[Direction::EAST] = std::move(east);
+    if (south != NULL) exits[Direction::SOUTH] = std::move(south);
+    if (west != NULL) exits[Direction::WEST] = std::move(west);
 }
 
 
@@ -94,6 +92,11 @@ int Room::isItemInRoom(string inString)
         }
     }
     return -1;
+}
+void Room::printExits(){
+    for (auto it = exits.begin(); it!= exits.end(); ++it) {
+        cout<<"Target room:"<<it->second->targetRoom->getName()<<endl;
+    }
 }
 /*string Room::shortDescription() {
 	return description;

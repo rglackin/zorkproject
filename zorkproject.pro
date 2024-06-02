@@ -18,10 +18,12 @@ SOURCES += \
     ZorkUL.cpp \
     armour.cpp \
     atkEffect.cpp \
+    effectfactory.cpp \
     enemy.cpp \
     exit.cpp \
     healEffect.cpp \
     item.cpp \
+    itemfactory.cpp \
     magicEffect.cpp \
     magicweapon.cpp \
     main.cpp \
@@ -38,10 +40,13 @@ HEADERS += \
     ZorkUL.h \
     armour.h \
     atkEffect.h \
+    effectfactory.h \
     enemy.h \
     exit.h \
+    globals.h \
     healEffect.h \
     item.h \
+    itemfactory.h \
     json.hpp \
     magicEffect.h \
     magicweapon.h \
@@ -57,6 +62,9 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-DISTFILES += \
-    rooms.json \
-    zork.json
+DISTFILES +=
+
+RESOURCES += \
+    resources.qrc
+
+

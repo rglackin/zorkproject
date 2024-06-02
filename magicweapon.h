@@ -5,7 +5,7 @@
 class MagicWeapon: public weapon,public Potion
 {
 public:
-    MagicWeapon();
+    MagicWeapon(const string& name,const string& desc, int weight, float value, int damage,int uses, MagicEffect* effect);
 };
 
 #endif // MAGICWEAPON_H

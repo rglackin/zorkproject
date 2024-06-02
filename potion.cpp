@@ -1,7 +1,7 @@
 #include "potion.h"
 
-Potion::Potion(int id, const string& name,const string& desc, int weight, float value,shared_ptr<MagicEffect> effect, int uses):
-    Item(id,name,desc,weight,value),effect(effect),uses(uses){}
+Potion::Potion( const string& name,const string& desc, int weight, float value,MagicEffect* effect, int uses):
+    Item(name,desc,weight,value),effect(effect),uses(uses){}
 
 int Potion::getUses() const
 {

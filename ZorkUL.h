@@ -7,20 +7,32 @@
 #include "item.h"
 #include <iostream>
 #include <string>
+#include<map>
+#include <QCoreApplication>
+#include <QFile>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
 using namespace std;
 
 class ZorkUL {
 private:
 	Parser parser;
 	Room *currentRoom;
+    map<int, Room*> roomsMap;
+    map<int, Item*> itemMap;
+    static QJsonDocument jsonDoc;
+    static QJsonObject jsonObject;
 	void createRooms();
 	void printWelcome();
 	bool processCommand(Command command);
 	void printHelp();
 	void goRoom(Command command);
     void createItems();
+    void createEnemies();
+    void createEffects();
     void displayItems();
-
+    void parseJson();
 public:
 	ZorkUL();
 	void play();

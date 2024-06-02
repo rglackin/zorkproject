@@ -10,7 +10,7 @@ private:
     shared_ptr<MagicEffect> effect;
     int uses;
 public:
-    Potion(int id, const string& name,const string& desc, int weight, float value,shared_ptr<MagicEffect> effect, int uses);
+    Potion(/*int id,*/ const string& name,const string& desc, int weight, float value,MagicEffect* effect, int uses);
     void use(class Character& c);
     void decrementUses();
 

@@ -8,7 +8,7 @@ using namespace std;
 
 class Item {
 private:
-    int id;
+    /*int id;*/
     string name;
     string desc;
     int weight;
@@ -16,7 +16,7 @@ private:
     //bool weaponCheck;
 
 public:
-    Item (int id, const string& name,const string& desc, int weight, float value);
+    Item (/*int id,*/ const string& name,const string& desc, int weight, float value);
     //virtual ~Item();
     //virtual void use()=0;
     //Item (string description);

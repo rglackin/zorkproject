@@ -3,7 +3,7 @@
         {
             "id": 1,
             "name": "Entrance",
-            "description": "You stand at the entrance of a narrow cave. \nThere is a faint light inside the cave, towards north.\nTo the east is a dingy forest where you will most certainly perish.",
+            "description": "You stand at the entrance of a narrow cave.\nThere is a faint light inside the cave, towards north.\nTo the east is a dingy forest where you will most certainly perish.",
             "exits": [
                 {
                     "direction": "north",
@@ -168,7 +168,7 @@
             "description": "A mining helmet. It looks like it has seen better days.",
             "value": 1,
             "weight": 2,
-            "type": "armor",
+            "type": "armour",
             "defense": 2
         },
         {
@@ -183,11 +183,23 @@
         {
             "id": 4,
             "name": "White BroncoNator 2000",
-            "description": "White BroncoNator 2000. Legend says only those upon whom the gloves fit may wield this mighty sword. It whispers its murderous intent to you.",
+            "description": "Legend says only those upon whom the gloves fit may wield this mighty sword. It whispers its murderous intent to you.",
             "value": 5000,
             "weight": 1,
-            "type": "weapon",
-            "damage": 50000
+            "type": "magic_weapon",
+            "damage": 50000,
+            "effect":3,
+            "uses":1000
+        },
+        {
+            "id": 5,
+            "name": "Weak Health Potion",
+            "description": "Restores 5 health.",
+            "value": 10,
+            "weight": 2,
+            "type": "potion",
+            "uses": 5,
+            "effect":1
         }
     ],
     "enemies":[
@@ -197,6 +209,37 @@
             "description": "A small, green creature with a wicked grin. It wields a rusty knife.",
             "health": 5,
             "damage": 1
+        }
+    ],
+    "effects":[
+        {
+            "id":1,
+            "type":"heal",
+            "amount":5
+        },
+        {
+            "id":2,
+            "type":"heal",
+            "amount":10
+        },
+        {
+            "id":3,
+            "type":"heal",
+            "amount":15
+        },
+        {
+            "id":4,
+            "type":"atk",
+            "amount":5
+        },
+        {
+            "id":5,
+            "type":"atk",
+            "amount":10
+        },        {
+            "id":6,
+            "type":"atk",
+            "amount":15
         }
     ]
     

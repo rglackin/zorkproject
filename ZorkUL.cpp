@@ -1,37 +1,79 @@
 #include <iostream>
+//#include <fstream>
+#include <QCoreApplication>
+#include <QFile>
+
+#include <QJsonArray>
+#include <QDebug>
+//#include "json.hpp"
+#include "ZorkUL.h"
+#include "Room.h"
+#include "itemfactory.h"
+#include"effectfactory.h"
+#include"globals.h"
+
 
 using namespace std;
-#include "ZorkUL.h"
+//using json = nlohmann::json;
+map<int, MagicEffect*> effectMap;
+QJsonDocument ZorkUL::jsonDoc;
+QJsonObject ZorkUL::jsonObject;
 
 int main(int argc, char *argv[]) {
+
+
+    QCoreApplication a(argc, argv);
+
 	ZorkUL temp;
-	temp.play();
+    //temp.play();
 	return 0;
 }
 
 ZorkUL::ZorkUL() {
+    parseJson();
+    createEffects();
+    createItems();
 	createRooms();
+    //map debugging
+    /*for(auto it = itemMap.begin();it!=itemMap.end();++it){
+        cout<<"ID: "<<it->first<<" Name:"<<it->second->getName()<<" Desc:"<<it->second->getDesc()<<endl;
+    }*/
 }
-
+void ZorkUL::parseJson(){
+    QString filePath = ":/json/zork.json";
+    QFile jsonFile(filePath);
+    if (!jsonFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        qWarning() << "Failed to open JSON file at: "<<filePath;
+        return;
+    }
+    QByteArray jsonData = jsonFile.readAll();
+    QJsonParseError error;
+    jsonDoc = QJsonDocument::fromJson(jsonData, &error);
+    if (error.error != QJsonParseError::NoError) {
+        qWarning() << "Failed to parse JSON:" << error.errorString();
+        return;
+    }
+    if (!jsonDoc.isObject()) {
+        qWarning() << "JSON document is not an object";
+        return ;
+    }
+    jsonObject= jsonDoc.object();
+}
 void ZorkUL::createRooms()  {
-	Room *a, *b, *c, *d, *e, *f, *g, *h, *i;
-
-	a = new Room("a");
-        a->addItem(new Item("x", 1, 11));
-        a->addItem(new Item("y", 2, 22));
-	b = new Room("b");
-        b->addItem(new Item("xx", 3, 33));
-        b->addItem(new Item("yy", 4, 44));
-	c = new Room("c");
-	d = new Room("d");
-	e = new Room("e");
-	f = new Room("f");
-	g = new Room("g");
-	h = new Room("h");
-	i = new Room("i");
-
+    QJsonArray roomsArray = jsonObject["rooms"].toArray();
+    //qDebug()<<"Rooms";
+    for (const auto& roomValue : roomsArray) {
+        QJsonObject roomObj = roomValue.toObject();
+        int id = roomObj["id"].toInt();
+        QString name = roomObj["name"].toString();
+        QString description = roomObj["description"].toString();
+        //qDebug() << "Room:" << description;
+        roomsMap[id] = new Room(name.toStdString(),description.toStdString());
+    }
+    //cout << "Room 2:" << roomsMap[2]->getDescription();
+    /*
 //             (N, E, S, W)
-	a->setExits(f, b, d, c);
+    a->setExits(f, b, d, c);
 	b->setExits(NULL, NULL, NULL, a);
 	c->setExits(NULL, a, NULL, NULL);
 	d->setExits(a, e, NULL, i);
@@ -41,12 +83,38 @@ void ZorkUL::createRooms()  {
 	h->setExits(NULL, f, NULL, NULL);
     i->setExits(NULL, d, NULL, NULL);
 
-        currentRoom = a;
+        currentRoom = a;*/
 }
+void ZorkUL::createEffects(){
+    QJsonArray effectArray = jsonObject["effects"].toArray();
+    //qDebug()<<"Rooms";
+    for (const auto& effectValue : effectArray) {
+        QJsonObject effectObj= effectValue.toObject();
+        int id = effectObj["id"].toInt();
+        effectMap[id]= EffectFactory::createEffect(effectObj);
+    }
+}
+void ZorkUL::createItems(){
+    QJsonArray itemsArray = jsonObject["items"].toArray();
+    //qDebug()<<"Rooms";
+    for (const auto& itemValue : itemsArray) {
+        QJsonObject itemObj = itemValue.toObject();
+        int id = itemObj["id"].toInt();
 
+        //tries to assign pointer to Item object to id key in itemMap
+        try {
+            itemMap[id] = ItemFactory::createItem(itemObj);
+        }
+        //catches invalid item type, item not placed in map
+        catch(const invalid_argument& e){
+            qDebug()<<"Debug: "<<e.what();
+        }
+    }
+}
 /**
  *  Main play routine.  Loops until end of play.
  */
+/*------------------------------REMOVE
 void ZorkUL::play() {
 	printWelcome();
 
@@ -68,10 +136,10 @@ void ZorkUL::play() {
 }
 
 void ZorkUL::printWelcome() {
-	cout << "start"<< endl;
+    cout << "start"<< endl;
 	cout << "info for help"<< endl;
 	cout << endl;
-	cout << currentRoom->longDescription() << endl;
+    cout << currentRoom->getDescription() << endl;
 }
 
 /**
@@ -79,6 +147,7 @@ void ZorkUL::printWelcome() {
  * If this command ends the ZorkUL game, true is returned, otherwise false is
  * returned.
  */
+/*----------------REMOVE
 bool ZorkUL::processCommand(Command command) {
 	if (command.isUnknown()) {
 		cout << "invalid input"<< endl;
@@ -127,7 +196,7 @@ bool ZorkUL::processCommand(Command command) {
     {
 
     }
-    /*
+
     {
     if (!command.hasSecondWord()) {
 		cout << "incomplete input"<< endl;
@@ -138,16 +207,18 @@ bool ZorkUL::processCommand(Command command) {
             itemsInRoom.push_Back;
         }
     }
-*/
+
     else if (commandWord.compare("quit") == 0) {
 		if (command.hasSecondWord())
 			cout << "overdefined input"<< endl;
 		else
 			return true; /**signal to quit*/
+/*-----------------REMOVE
 	}
 	return false;
 }
 /** COMMANDS **/
+/*------------------------------REMOVE
 void ZorkUL::printHelp() {
 	cout << "valid inputs are; " << endl;
 	parser.showCommands();
@@ -155,7 +226,7 @@ void ZorkUL::printHelp() {
 }
 
 void ZorkUL::goRoom(Command command) {
-	if (!command.hasSecondWord()) {
+    if (!command.hasSecondWord()) {
 		cout << "incomplete input"<< endl;
 		return;
 	}
@@ -170,19 +241,20 @@ void ZorkUL::goRoom(Command command) {
 	else {
 		currentRoom = nextRoom;
 		cout << currentRoom->longDescription() << endl;
-	}
+    }
 }
 
 string ZorkUL::go(string direction) {
 	//Make the direction lowercase
 	//transform(direction.begin(), direction.end(), direction.begin(),:: tolower);
 	//Move to the next room
-	Room* nextRoom = currentRoom->nextRoom(direction);
+    Room* nextRoom = currentRoom->nextRoom(direction);
 	if (nextRoom == NULL)
 		return("direction null");
 	else
 	{
 		currentRoom = nextRoom;
 		return currentRoom->longDescription();
-	}
+    }
 }
+------------------------------REMOVE*/

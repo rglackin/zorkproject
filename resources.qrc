@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/json">
+        <file>zork.json</file>
+    </qresource>
+</RCC>

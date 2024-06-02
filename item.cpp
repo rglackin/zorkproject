@@ -1,7 +1,7 @@
 #include "item.h"
 
-Item::Item (int id, const string& name,const string& desc, int weight, float value/**, int weaponCheck*/)
-    : id(id), name(name),desc(desc),weight(weight),value(value) {}
+Item::Item (/*int id,*/ const string& name,const string& desc, int weight, float value/**, int weaponCheck*/)
+    : /*id(id),*/ name(name),desc(desc),weight(weight),value(value) {}
 
 void Item::setWeight(int inWeightGrams)
 {

@@ -11,7 +11,10 @@ private:
     int uses;
 public:
     Potion(/*int id,*/ const string& name,const string& desc, int weight, float value,MagicEffect* effect, int uses);
-    Potion(Potion &i);
+    Potion(const Potion &i);
+    virtual Potion* clone() const {
+        return new Potion(*this);
+    }
     void use(class Character& c);
     void decrementUses();
 

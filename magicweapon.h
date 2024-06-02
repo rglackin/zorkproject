@@ -6,7 +6,10 @@ class MagicWeapon: public weapon,public Potion
 {
 public:
     MagicWeapon(const string& name,const string& desc, int weight, float value, int damage,int uses, MagicEffect* effect);
-    MagicWeapon(MagicWeapon &i);
+    MagicWeapon(const MagicWeapon &i);
+    virtual MagicWeapon* clone() const {
+        return new MagicWeapon(*this);
+    }
 };
 
 #endif // MAGICWEAPON_H

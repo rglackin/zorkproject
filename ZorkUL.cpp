@@ -34,17 +34,22 @@ ZorkUL::ZorkUL() {
     parseJson();
     createEffects();
     createItems();
+    createEnemies();
 	createRooms();
+    for(auto it = roomsMap.begin();it!=roomsMap.end();++it){
+        //cout<<"ID: "<<it->first<<" Name:"<<it->second->getName()<<" Desc:"<<it->second->getDesc()<<endl;
+        cout<<"RoomID: "<<it->first<<endl<<" Name "<<it->second->getName()<<endl;
+    }
     createExits();
     //map debugging
     /*for(auto it = itemMap.begin();it!=itemMap.end();++it){
         cout<<"ID: "<<it->first<<" Name:"<<it->second->getName()<<" Desc:"<<it->second->getDesc()<<endl;
     }*/
-    /*for(auto it = roomsMap.begin();it!=roomsMap.end();++it){
+    for(auto it = roomsMap.begin();it!=roomsMap.end();++it){
         //cout<<"ID: "<<it->first<<" Name:"<<it->second->getName()<<" Desc:"<<it->second->getDesc()<<endl;
         cout<<"RoomID: "<<it->first<<endl;
         it->second->printExits();
-    }*/
+    }
 
 }
 void ZorkUL::parseJson(){
@@ -76,15 +81,16 @@ void ZorkUL::createRooms()  {
         QString name = roomObj["name"].toString();
         QString description = roomObj["description"].toString();
         //qDebug() << "Room:" << description;
-        Room newRoom= Room(name.toStdString(),description.toStdString());
-        roomsMap[id] = &newRoom;
+        Room* newRoom= new Room(name.toStdString(),description.toStdString());
+        roomsMap[id] = newRoom;
         QJsonArray items = roomObj["items"].toArray();
         QJsonArray enemies = roomObj["enemies"].toArray();
         //create function pointers
         void(Room::*addItemPtr)(Item*)= &Room::addItem;
-        //void(Room::*addEnemyPtr)(Enemy*)= &Room::addEnemy;
+        void(Room::*addEnemyPtr)(Enemy*)= &Room::addEnemy;
         //call populate room using function pointers
-        populateRoom<Item>(&newRoom,addItemPtr,items);
+        populateRoom<Item>(newRoom,addItemPtr,items);
+        populateRoom<Enemy>(newRoom,addEnemyPtr,enemies);
     }
     currentRoom = roomsMap[1];
 }
@@ -146,8 +152,22 @@ void ZorkUL::createExits(){
         entryRoomPtr->setExits(std::move(north),std::move(east),std::move(south),std::move(west));
     }
 }
-template<typename T, typename Func>
+void ZorkUL::createEnemies(){
+    QJsonArray enemyArray = jsonObject["enemies"].toArray();
+    //qDebug()<<"Rooms";
+    for (const auto& value : enemyArray) {
+        QJsonObject obj = value.toObject();
+        int id = obj["id"].toInt();
+        string name = obj["name"].toString().toStdString();
+        string desc = obj["description"].toString().toStdString();
+        int dmg = obj["damage"].toInt();
+        int health = obj["health"].toInt();
+        //places pointer to enemy into enemyMap with key 'id'
+        enemyMap[id]= new Enemy(name,desc,dmg,health);
+    }
+}
 //takes in pointer to room, pointer to func, and array
+template<typename T, typename Func>
 void ZorkUL::populateRoom(Room* room,Func func, QJsonArray &array){
     //set pointer to map to same type as desired class type
     map<int,T*> *mapPtr = nullptr;

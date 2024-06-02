@@ -17,9 +17,13 @@ private:
 
 public:
     Item (/*int id,*/ const string& name,const string& desc, int weight, float value);
-    Item(Item &i);
+    Item(const Item &i);
+    virtual Item* clone ()const {
+        return new Item(*this);
+    }
     string getName();
     string getDesc();
+    virtual string toString();
 	int getWeight();
 	void setWeight(int weightGrams);
     int getValue();

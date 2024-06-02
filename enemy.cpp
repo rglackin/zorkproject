@@ -1,16 +1,13 @@
 #include "enemy.h"
 #include <string>
 using std::string;
-Enemy::Enemy(int id,  string name, string desc, int damage, int health) {
-    this->id = id;
+Enemy::Enemy(string name, string desc, int damage, int health) {
     this->name = name;
     this->desc = desc;
     this->damage = damage;
     this->health = health;
 }
-int Enemy:: getId() {
-    return id;
-};
+Enemy::Enemy(Enemy &e):Enemy(e.name,e.desc,e.damage,e.health){}
 string Enemy::getName(){
     return name;
 } ;

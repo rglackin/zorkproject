@@ -24,7 +24,8 @@ private:
 	string description;
     map<Direction,unique_ptr<Exit>> exits;
 	string exitString();
-    vector <Item> itemsInRoom;
+    vector <Item*> itemsInRoom;
+    vector <Enemy*> enemiesInRoom;
 
 
 public:

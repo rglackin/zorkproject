@@ -116,7 +116,7 @@
                 },
                 {
                     "direction": "south",
-                    "roomId": 7
+                    "roomId": null
                 },
                 {
                     "direction": "west",

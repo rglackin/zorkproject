@@ -6,8 +6,12 @@ class weapon: virtual public Item
 private:
     int damage;
 public:
-    weapon(weapon& i);
+    weapon(const weapon& i);
     weapon(/*int id,*/ const string& name,const string& desc, int weight, float value, int damage);
+    virtual weapon* clone() const override {
+        return new weapon(*this);
+    }
+    string toString() override;
     //void use() override;
     int getDamage() const;
     void setDamage(int damage);

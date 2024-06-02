@@ -7,7 +7,10 @@ private:
     int defense;
 public:
     Armour(const string& name,const string& desc, int weight, float value, int defense);
-    Armour(Armour &i);
+    Armour(const Armour &i);
+    virtual Armour* clone() const {
+        return new Armour(*this);
+    }
     int getDefense() const;
     void setDefense(int defense);
 

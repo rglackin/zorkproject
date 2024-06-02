@@ -7,15 +7,14 @@ using std::string;
 class Enemy
 {
 private:
-    int id;
     string name;
     string desc;
     int damage;
     int health;
 
 public:
-    Enemy(int id,  string name,  string desc, int damage, int health);
-    int getId() ;
+    Enemy( string name,  string desc, int damage, int health);
+    Enemy(Enemy &e);
     string getName() ;
     string getDesc() ;
     int getDamage() ;

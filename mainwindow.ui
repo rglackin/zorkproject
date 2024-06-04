@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
+    <width>1010</width>
     <height>600</height>
    </rect>
   </property>
@@ -164,6 +164,83 @@
       <bool>true</bool>
      </property>
     </widget>
+   </widget>
+   <widget class="QPushButton" name="btnWeapon">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>350</y>
+      <width>101</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Equip Weapon</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnArmour">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>390</y>
+      <width>101</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Equip Armour</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnMagic">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>430</y>
+      <width>101</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Use Magic</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblStats">
+    <property name="geometry">
+     <rect>
+      <x>730</x>
+      <y>20</y>
+      <width>261</width>
+      <height>48</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Current Stats:</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignHCenter|Qt::AlignTop</set>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblEquip">
+    <property name="geometry">
+     <rect>
+      <x>720</x>
+      <y>240</y>
+      <width>261</width>
+      <height>48</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Current Equipment:</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignHCenter|Qt::AlignTop</set>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
+    </property>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>

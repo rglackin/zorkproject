@@ -6,6 +6,7 @@ class AtkEffect:public MagicEffect
 public:
     AtkEffect(int buffAmount);
     void applyEffect(class Character& c) const override;
+    string effectString() override;
 };
 
 #endif // ATKEFFECT_H

@@ -17,8 +17,11 @@ SOURCES += \
     atkEffect.cpp \
     directionenum.cpp \
     effectfactory.cpp \
+    endscreen.cpp \
     enemy.cpp \
     exit.cpp \
+    fighthandler.cpp \
+    fightwindow.cpp \
     healEffect.cpp \
     inventorywindow.cpp \
     item.cpp \
@@ -38,8 +41,11 @@ HEADERS += \
     atkEffect.h \
     directionenum.h \
     effectfactory.h \
+    endscreen.h \
     enemy.h \
     exit.h \
+    fighthandler.h \
+    fightwindow.h \
     globals.h \
     healEffect.h \
     inventorywindow.h \
@@ -53,6 +59,8 @@ HEADERS += \
     weapon.h
 
 FORMS += \
+    endscreen.ui \
+    fightwindow.ui \
     inventorywindow.ui \
     mainwindow.ui
 

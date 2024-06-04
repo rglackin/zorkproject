@@ -24,7 +24,7 @@
 
             ],
             "enemies": [],
-            "items": []
+            "items": [6]
         },
         {
             "id": 2,
@@ -104,7 +104,7 @@
         {
             "id": 5,
             "name": "Mine entrance",
-            "description": "You stand at the entrance of a mine. The sound of a pickaxe hitting rock is louder here.\nA goblin stands in front of you, blocking the way.\nTo the south the rail line continues.",
+            "description": "You stand at the entrance of a mine. The sound of a pickaxe hitting rock is louder here.\nA goblin stands in front of you, blocking the way.\nTo the south the rail line continues.\nThe sound of the pickaxe is coming from the east within the mine.",
             "exits": [
                 {
                     "direction": "north",
@@ -112,7 +112,7 @@
                 },
                 {
                     "direction": "east",
-                    "roomId": null
+                    "roomId": 7
                 },
                 {
                     "direction": "south",
@@ -149,6 +149,31 @@
                 }
             ],
             "enemies": [],
+            "items": []
+        },
+        {
+            "id": 7,
+            "name": "Final Boss",
+            "description": "The goblin king stands above you. Fight or die!!!!!",
+            "exits": [
+                {
+                    "direction": "north",
+                    "roomId": null
+                },
+                {
+                    "direction": "east",
+                    "roomId": null
+                },
+                {
+                    "direction": "south",
+                    "roomId": null
+                },
+                {
+                    "direction": "west",
+                    "roomId": 5
+                }
+            ],
+            "enemies": [2],
             "items": []
         }
     ],
@@ -200,6 +225,16 @@
             "type": "potion",
             "uses": 5,
             "effect":1
+        },
+        {
+            "id": 6,
+            "name": "Weak Attack Potion",
+            "description": "Buffs 5 Attack.",
+            "value": 10,
+            "weight": 2,
+            "type": "potion",
+            "uses": 5,
+            "effect":4
         }
     ],
     "enemies":[
@@ -209,6 +244,13 @@
             "description": "A small, green creature with a wicked grin. It wields a rusty knife.",
             "health": 5,
             "damage": 1
+        },
+        {
+            "id": 2,
+            "name": "Goblin King",
+            "description": "A green creature with a wicked grin. It wields a rusty knife.",
+            "health": 10,
+            "damage": 3
         }
     ],
     "effects":[

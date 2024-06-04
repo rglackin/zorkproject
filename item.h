@@ -3,6 +3,7 @@
 
 //#include <map>
 #include <string>
+
 //#include <iostream>
 using namespace std;
 
@@ -22,6 +23,7 @@ public:
         return new Item(*this);
     }
     virtual ~Item();
+    //virtual void use(class Character& c);
     string getName();
     string getDesc();
     virtual string toString();

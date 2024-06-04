@@ -14,12 +14,12 @@ protected:
 public:
     Potion(/*int id,*/ const string& name,const string& desc, int weight, float value,MagicEffect* effect, int uses);
     Potion(const Potion &i);
-    virtual Potion* clone() const {
+    virtual Potion* clone() const override{
         return new Potion(*this);
     }
     void use(class Character& c);
 
-
+    string effectString();
     int getUses() const;
     //void setUses(int newUses);
 };

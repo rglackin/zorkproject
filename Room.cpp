@@ -118,6 +118,9 @@ Room* Room::nextRoom(Direction d, string& msg) {
     }
     return nullptr;
 }
+Enemy* Room::getEnemy(){
+    return enemiesInRoom[0];
+}
 
 
 

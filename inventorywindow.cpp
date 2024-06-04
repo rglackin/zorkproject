@@ -2,6 +2,7 @@
 #include "ui_inventorywindow.h"
 #include "mainwindow.h"
 #include "Character.h"
+#include "magicweapon.h"
 #include <QTableWidget>
 #include <QVBoxLayout>
 #include <QDebug>
@@ -66,14 +67,47 @@ void inventoryWindow::on_tbl_items_itemSelectionChanged()
 }
 
 void inventoryWindow::displayItem(Item* i){
-    setItemViewVisibility(true);
 
+    ui->lblName->setText("Item: "+ QString::fromStdString(i->getName()));
+    ui->lblDesc->setText(""+ QString::fromStdString(i->getDesc()));
+    ui->lblValue->setText("Value: "+ QString::number(i->getValue()));
+    ui->lblWeight->setText("Weight: "+ QString::number(i->getWeight()));
+    string dmg ="";
+    string def = "";
+    string eff = "";
+    string use ="";
+
+    MagicWeapon* mw = dynamic_cast<MagicWeapon*>(i);
+    weapon* w = dynamic_cast<weapon*>(i);
+    Armour* a = dynamic_cast<Armour*>(i);
+    Potion* p = dynamic_cast<Potion*>(i);
+    if (mw != nullptr) {
+        dmg = "Damage: " + to_string(mw->getDamage());
+        eff = "Effect: " + mw->effectString();
+        use = "Uses: " + to_string(mw->getUses());
+    }
+    else if (w != nullptr) {
+        dmg = "Damage: " + to_string(w->getDamage());
+    }
+    else if (a != nullptr) {
+        def = "Defense: " + to_string(a->getDefense());
+    }
+    else if (p != nullptr) {
+        eff = "Effect: " + p->effectString();
+        use = "Uses: " + to_string(p->getUses());
+    }
+    ui->lblDamage->setText(QString::fromStdString(dmg));
+    ui->lblDefense->setText(QString::fromStdString(def));
+    ui->lblEffect->setText(QString::fromStdString(eff));
+    ui->lblUses->setText(QString::fromStdString(use));
+    setItemViewVisibility(true);
 }
 void inventoryWindow::setItemViewVisibility(bool b){
     QLabel* lblArr[8] = {ui->lblName,ui->lblDesc,ui->lblDamage,ui->lblDefense,ui->lblValue,ui->lblWeight,ui->lblEffect,ui->lblUses};
     QLabel** ptr = lblArr;
     for (int var = 0; var < 8; ++var) {
         (*(ptr+var))->setVisible(b);
+        (*(ptr+var))->adjustSize();
     }
     ui->btnShowTable->setVisible(b);
     ui->tbl_items->setVisible(!b);

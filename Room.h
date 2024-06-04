@@ -40,6 +40,7 @@ public:
     void removeItemFromRoom(int location);
     void printExits();
     friend class MainWindow;
+    Enemy* getEnemy();
     //bool exitValid(Direction d, s);
     //void setName(const string &newName);
 };

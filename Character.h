@@ -16,8 +16,8 @@ private:
     int baseDefense ;
     int baseDamage ;
     vector <Item*> itemsInCharacter;
-    weapon* equippedWeapon;
-    Armour* equippedArmour;
+    weapon* equippedWeapon = nullptr;
+    Armour* equippedArmour = nullptr;
     Character();
 public:
     void addItem(Item *item);
@@ -31,6 +31,8 @@ public:
     void changeBaseDamage(int change);
     int getTotalDefense() const;
     void changeBaseDefense(int newBaseDefense);
+    int getHealth() const;
+    string describeCharacter();
 };
 
 #endif /*CHARACTER_H_*/

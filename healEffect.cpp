@@ -6,3 +6,6 @@ void HealEffect::applyEffect(Character& c)const{
     int change = getBuffAmount();
     c.changeHealth(change);
 }
+string HealEffect::effectString(){
+    return "Heals you by "+to_string(getBuffAmount())+"HP";
+}

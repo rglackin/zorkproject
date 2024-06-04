@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>FightWindow</class>
+ <widget class="QDialog" name="FightWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>873</width>
+    <height>542</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QLabel" name="lblTitle">
+   <property name="geometry">
+    <rect>
+     <x>350</x>
+     <y>40</y>
+     <width>161</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Fight!</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_attack">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>320</y>
+     <width>181</width>
+     <height>111</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Attack!</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_flee">
+   <property name="geometry">
+    <rect>
+     <x>540</x>
+     <y>320</y>
+     <width>211</width>
+     <height>111</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Flee to previous room.</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblEnemy">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>110</y>
+     <width>301</width>
+     <height>151</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Enemy details</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblEquip">
+   <property name="geometry">
+    <rect>
+     <x>490</x>
+     <y>110</y>
+     <width>301</width>
+     <height>151</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Equipment details</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

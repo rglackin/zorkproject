@@ -16,9 +16,12 @@ int Potion::getUses() const
     uses = newUses;
 }*/
 void Potion::decrementUses(){
-    uses--;
+    uses = uses--;
 }
 void Potion::use(class Character& c){
     decrementUses();
     effect->applyEffect(c);
+}
+string Potion::effectString(){
+    return effect->effectString();
 }

@@ -6,3 +6,6 @@ void AtkEffect::applyEffect(Character& c)const{
     int change = getBuffAmount();
     c.changeBaseDamage(change);
 }
+string AtkEffect::effectString(){
+    return "Buffs your damage by "+to_string(getBuffAmount());
+}

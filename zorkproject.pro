@@ -11,13 +11,11 @@ CONFIG += console
 
 SOURCES += \
     Character.cpp \
-    Command.cpp \
-    CommandWords.cpp \
-    Parser.cpp \
     Room.cpp \
     ZorkUL.cpp \
     armour.cpp \
     atkEffect.cpp \
+    directionenum.cpp \
     effectfactory.cpp \
     enemy.cpp \
     exit.cpp \
@@ -33,13 +31,11 @@ SOURCES += \
 
 HEADERS += \
     Character.h \
-    Command.h \
-    CommandWords.h \
-    Parser.h \
     Room.h \
     ZorkUL.h \
     armour.h \
     atkEffect.h \
+    directionenum.h \
     effectfactory.h \
     enemy.h \
     exit.h \

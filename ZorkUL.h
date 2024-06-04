@@ -9,8 +9,6 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
-#include "Command.h"
-#include "Parser.h"
 #include "Room.h"
 #include "item.h"
 #include"enemy.h"
@@ -18,7 +16,7 @@ using namespace std;
 
 class ZorkUL {
 private:
-	Parser parser;
+
 	Room *currentRoom;
     map<int, Room*> roomsMap;
     map<int, Item*> itemMap;
@@ -37,14 +35,14 @@ private:
     void populateRoom(Room* room, Func func, QJsonArray &array);
 
 	void printWelcome();
-	bool processCommand(Command command);
 	void printHelp();
-	void goRoom(Command command);
     void displayItems();
+    ZorkUL();
 public:
-	ZorkUL();
-	void play();
-	string go(string direction);
+    static ZorkUL& getInstance();
+    string go(Direction direction);
+    friend class MainWindow;
+
 };
 
 #endif /*ZORKUL_H_*/

@@ -8,14 +8,10 @@
 #include "item.h"
 #include "exit.h"
 #include "enemy.h"
+#include "directionenum.h"
 using namespace std;
 using std::vector;
-enum class Direction {
-    NORTH,
-    SOUTH,
-    EAST,
-    WEST
-};
+using namespace DirectionUtils;
 class Room {
 
 private:
@@ -35,7 +31,7 @@ public:
     string getName() const;
     string getDescription() const;
     //int getId() const;
-    Room* nextRoom(Direction direction);
+    Room* nextRoom(Direction direction, string& msg);
     //should add copy of item to room, enables multiple items of same type
     void addItem(Item *inItem);
     void addEnemy(Enemy *inEnemy);
@@ -43,6 +39,7 @@ public:
     int isItemInRoom(string inString);
     void removeItemFromRoom(int location);
     void printExits();
+    //bool exitValid(Direction d, s);
     //void setName(const string &newName);
 };
 #endif

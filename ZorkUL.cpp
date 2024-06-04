@@ -13,29 +13,20 @@
 #include "enemy.h"
 
 using namespace std;
-using std::move;
-//using json = nlohmann::json;
+using std::move;;
 map<int, MagicEffect*> effectMap;
 QJsonDocument ZorkUL::jsonDoc;
 QJsonObject ZorkUL::jsonObject;
 
-int main(int argc, char *argv[]) {
-
-
-    QCoreApplication a(argc, argv);
-
-	ZorkUL temp;
-    //temp.play();
-	return 0;
-}
-
 ZorkUL::ZorkUL() {
     cout<<"start"<<endl;
+    //create game elements
     parseJson();
     createEffects();
     createItems();
     createEnemies();
 	createRooms();
+    //DEBUG Cout rooms
     for(auto it = roomsMap.begin();it!=roomsMap.end();++it){
         //cout<<"ID: "<<it->first<<" Name:"<<it->second->getName()<<" Desc:"<<it->second->getDesc()<<endl;
         cout<<"RoomID: "<<it->first<<endl<<" Name "<<it->second->getName()<<endl;
@@ -45,6 +36,7 @@ ZorkUL::ZorkUL() {
     /*for(auto it = itemMap.begin();it!=itemMap.end();++it){
         cout<<"ID: "<<it->first<<" Name:"<<it->second->getName()<<" Desc:"<<it->second->getDesc()<<endl;
     }*/
+    //DEBUG cout exits
     for(auto it = roomsMap.begin();it!=roomsMap.end();++it){
         //cout<<"ID: "<<it->first<<" Name:"<<it->second->getName()<<" Desc:"<<it->second->getDesc()<<endl;
         cout<<"RoomID: "<<it->first<<endl;
@@ -52,6 +44,12 @@ ZorkUL::ZorkUL() {
     }
 
 }
+
+ZorkUL& ZorkUL::getInstance(){
+    static ZorkUL instance;
+    return instance;
+}
+
 void ZorkUL::parseJson(){
     QString filePath = ":/json/zork.json";
     QFile jsonFile(filePath);
@@ -186,37 +184,47 @@ void ZorkUL::populateRoom(Room* room,Func func, QJsonArray &array){
         (room->*func)(tPtr);
     }
 }
-/*void ZorkUL::populateRoomEnemies(Room &room, QJsonArray &enemies){
 
-}*/
+string ZorkUL::go(Direction d){
+    string msg ="";
+    Room* tempPtr = currentRoom->nextRoom(d,msg);
+    if(tempPtr==nullptr){
+        return msg;
+    }
+    else{
+        currentRoom = tempPtr;
+    }
+    return msg;
+}
+
 /**
  *  Main play routine.  Loops until end of play.
  */
 /*------------------------------REMOVE
 void ZorkUL::play() {
-	printWelcome();
+    printWelcome();
 
-	// Enter the main command loop.  Here we repeatedly read commands and
-	// execute them until the ZorkUL game is over.
+    // Enter the main command loop.  Here we repeatedly read commands and
+    // execute them until the ZorkUL game is over.
 
-	bool finished = false;
-	while (!finished) {
-		// Create pointer to command and give it a command.
+    bool finished = false;
+    while (!finished) {
+        // Create pointer to command and give it a command.
         Command* command = parser.getCommand();
-		// Pass dereferenced command and check for end of game.
-		finished = processCommand(*command);
-		// Free the memory allocated by "parser.getCommand()"
-		//   with ("return new Command(...)")
-		delete command;
-	}
-	cout << endl;
-	cout << "end" << endl;
+        // Pass dereferenced command and check for end of game.
+        finished = processCommand(*command);
+        // Free the memory allocated by "parser.getCommand()"
+        //   with ("return new Command(...)")
+        delete command;
+    }
+    cout << endl;
+    cout << "end" << endl;
 }
 
 void ZorkUL::printWelcome() {
     cout << "start"<< endl;
-	cout << "info for help"<< endl;
-	cout << endl;
+    cout << "info for help"<< endl;
+    cout << endl;
     cout << currentRoom->getDescription() << endl;
 }
 
@@ -227,33 +235,33 @@ void ZorkUL::printWelcome() {
  */
 /*----------------REMOVE
 bool ZorkUL::processCommand(Command command) {
-	if (command.isUnknown()) {
-		cout << "invalid input"<< endl;
-		return false;
-	}
+    if (command.isUnknown()) {
+        cout << "invalid input"<< endl;
+        return false;
+    }
 
-	string commandWord = command.getCommandWord();
-	if (commandWord.compare("info") == 0)
-		printHelp();
+    string commandWord = command.getCommandWord();
+    if (commandWord.compare("info") == 0)
+        printHelp();
 
-	else if (commandWord.compare("map") == 0)
-		{
+    else if (commandWord.compare("map") == 0)
+        {
         cout << "[h] --- [f] --- [g]" << endl;
-		cout << "         |         " << endl;
         cout << "         |         " << endl;
-		cout << "[c] --- [a] --- [b]" << endl;
-		cout << "         |         " << endl;
-		cout << "         |         " << endl;
-		cout << "[i] --- [d] --- [e]" << endl;
-		}
+        cout << "         |         " << endl;
+        cout << "[c] --- [a] --- [b]" << endl;
+        cout << "         |         " << endl;
+        cout << "         |         " << endl;
+        cout << "[i] --- [d] --- [e]" << endl;
+        }
 
-	else if (commandWord.compare("go") == 0)
-		goRoom(command);
+    else if (commandWord.compare("go") == 0)
+        goRoom(command);
 
     else if (commandWord.compare("take") == 0)
     {
-       	if (!command.hasSecondWord()) {
-		cout << "incomplete input"<< endl;
+        if (!command.hasSecondWord()) {
+        cout << "incomplete input"<< endl;
         }
         else
          if (command.hasSecondWord()) {
@@ -277,7 +285,7 @@ bool ZorkUL::processCommand(Command command) {
 
     {
     if (!command.hasSecondWord()) {
-		cout << "incomplete input"<< endl;
+        cout << "incomplete input"<< endl;
         }
         else
             if (command.hasSecondWord()) {
@@ -287,52 +295,52 @@ bool ZorkUL::processCommand(Command command) {
     }
 
     else if (commandWord.compare("quit") == 0) {
-		if (command.hasSecondWord())
-			cout << "overdefined input"<< endl;
-		else
-			return true; /**signal to quit*/
+        if (command.hasSecondWord())
+            cout << "overdefined input"<< endl;
+        else
+            return true; /**signal to quit*/
 /*-----------------REMOVE
-	}
-	return false;
+    }
+    return false;
 }
 /** COMMANDS **/
 /*------------------------------REMOVE
 void ZorkUL::printHelp() {
-	cout << "valid inputs are; " << endl;
-	parser.showCommands();
+    cout << "valid inputs are; " << endl;
+    parser.showCommands();
 
 }
 
 void ZorkUL::goRoom(Command command) {
     if (!command.hasSecondWord()) {
-		cout << "incomplete input"<< endl;
-		return;
-	}
+        cout << "incomplete input"<< endl;
+        return;
+    }
 
-	string direction = command.getSecondWord();
+    string direction = command.getSecondWord();
 
-	// Try to leave current room.
-	Room* nextRoom = currentRoom->nextRoom(direction);
+    // Try to leave current room.
+    Room* nextRoom = currentRoom->nextRoom(direction);
 
-	if (nextRoom == NULL)
-		cout << "underdefined input"<< endl;
-	else {
-		currentRoom = nextRoom;
-		cout << currentRoom->longDescription() << endl;
+    if (nextRoom == NULL)
+        cout << "underdefined input"<< endl;
+    else {
+        currentRoom = nextRoom;
+        cout << currentRoom->longDescription() << endl;
     }
 }
 
 string ZorkUL::go(string direction) {
-	//Make the direction lowercase
-	//transform(direction.begin(), direction.end(), direction.begin(),:: tolower);
-	//Move to the next room
+    //Make the direction lowercase
+    //transform(direction.begin(), direction.end(), direction.begin(),:: tolower);
+    //Move to the next room
     Room* nextRoom = currentRoom->nextRoom(direction);
-	if (nextRoom == NULL)
-		return("direction null");
-	else
-	{
-		currentRoom = nextRoom;
-		return currentRoom->longDescription();
+    if (nextRoom == NULL)
+        return("direction null");
+    else
+    {
+        currentRoom = nextRoom;
+        return currentRoom->longDescription();
     }
 }
 ------------------------------REMOVE*/

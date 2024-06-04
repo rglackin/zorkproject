@@ -12,9 +12,9 @@ Character& Character::getCharacterInstance(){
 /*void Character::addItem(Item &item) {
     itemsInCharacter.push_back(item);
 }*/
-int Character::getBaseDamage() const
+int Character::getTotalDamage() const
 {
-    return baseDamage;
+    return baseDamage + equippedWeapon->getDamage();
 }
 
 void Character::changeBaseDamage(int change)
@@ -22,9 +22,9 @@ void Character::changeBaseDamage(int change)
     baseDamage += change;
 }
 
-int Character::getBaseDefense() const
+int Character::getTotalDefense() const
 {
-    return baseDefense;
+    return baseDefense+ equippedArmour->getDefense();
 }
 
 void Character::changeBaseDefense(int change)
@@ -35,12 +35,19 @@ void Character::changeHealth(int change)
 {
     health += change;
 }
-
-/*void Character::addItem(Item *item) {
-    itemsInCharacter.push_back(*item);
+void Character::addItem(Item *item) {
+    Item *copyItem = item->clone();
     delete item;
-}*/
-
-
+    itemsInCharacter.push_back(copyItem);
+}
+vector<Item*>& Character::getItemsInCharacter(){
+    return itemsInCharacter;
+}
+void Character::equipWeapon(weapon& w){
+    equippedWeapon = &w;
+}
+void Character::equipArmour(Armour& a){
+    equippedArmour= &a;
+}
 
 

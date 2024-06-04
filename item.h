@@ -21,6 +21,7 @@ public:
     virtual Item* clone ()const {
         return new Item(*this);
     }
+    virtual ~Item();
     string getName();
     string getDesc();
     virtual string toString();

@@ -9,6 +9,9 @@ Item::Item(const Item &i){
     weight = i.weight;
     value = i.value;
 };
+Item::~Item(){
+
+}
 void Item::setWeight(int inWeightGrams)
 {
     weight = inWeightGrams;
@@ -19,6 +22,9 @@ string Item::toString(){
 void Item::setValue(int inValue)
 {
     value = inValue;
+}
+int Item::getWeight(){
+    return weight;
 }
 
 string Item::getName()

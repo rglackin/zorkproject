@@ -8,6 +8,8 @@ class Potion:virtual public Item
 {
 private:
     shared_ptr<MagicEffect> effect;
+    void decrementUses();
+protected:
     int uses;
 public:
     Potion(/*int id,*/ const string& name,const string& desc, int weight, float value,MagicEffect* effect, int uses);
@@ -16,7 +18,7 @@ public:
         return new Potion(*this);
     }
     void use(class Character& c);
-    void decrementUses();
+
 
     int getUses() const;
     //void setUses(int newUses);

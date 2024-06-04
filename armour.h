@@ -11,6 +11,7 @@ public:
     virtual Armour* clone() const {
         return new Armour(*this);
     }
+
     int getDefense() const;
     void setDefense(int defense);
 

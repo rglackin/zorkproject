@@ -19,5 +19,6 @@ void Potion::decrementUses(){
     uses--;
 }
 void Potion::use(class Character& c){
+    decrementUses();
     effect->applyEffect(c);
 }

@@ -20,6 +20,7 @@ SOURCES += \
     enemy.cpp \
     exit.cpp \
     healEffect.cpp \
+    inventorywindow.cpp \
     item.cpp \
     itemfactory.cpp \
     magicEffect.cpp \
@@ -41,6 +42,7 @@ HEADERS += \
     exit.h \
     globals.h \
     healEffect.h \
+    inventorywindow.h \
     item.h \
     itemfactory.h \
     json.hpp \
@@ -51,6 +53,7 @@ HEADERS += \
     weapon.h
 
 FORMS += \
+    inventorywindow.ui \
     mainwindow.ui
 
 # Default rules for deployment.

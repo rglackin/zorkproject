@@ -1,7 +1,8 @@
 #ifndef CHARACTER_H_
 #define CHARACTER_H_
 #include "ZorkUL.h"
-
+#include "weapon.h"
+#include "armour.h"
 #include <string>
 using namespace std;
 #include <vector>
@@ -14,16 +15,21 @@ private:
     const int maxHealth = 20;
     int baseDefense ;
     int baseDamage ;
-    vector < Item> itemsInCharacter;
+    vector <Item*> itemsInCharacter;
+    weapon* equippedWeapon;
+    Armour* equippedArmour;
     Character();
 public:
     void addItem(Item *item);
-    void addItem(Item &item);
+    void removeItem(Item *item);
     void changeHealth(int change);
-    Character& getCharacterInstance();
-    int getBaseDamage() const;
+    void equipWeapon(weapon& w);
+    void equipArmour(Armour& a);
+    static Character& getCharacterInstance();
+    vector<Item*>& getItemsInCharacter();
+    int getTotalDamage() const;
     void changeBaseDamage(int change);
-    int getBaseDefense() const;
+    int getTotalDefense() const;
     void changeBaseDefense(int newBaseDefense);
 };
 

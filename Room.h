@@ -39,6 +39,7 @@ public:
     int isItemInRoom(string inString);
     void removeItemFromRoom(int location);
     void printExits();
+    friend class MainWindow;
     //bool exitValid(Direction d, s);
     //void setName(const string &newName);
 };
